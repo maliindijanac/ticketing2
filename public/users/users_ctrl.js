@@ -8,7 +8,7 @@ console.log ('user init');
         console.log('confirmdelete modal');
         console.log(inuser.name);
         modalInstance = $uibModal.open({
-            controller: 'ConfirmInstanceCtrl',
+            controller: 'UserConfirmInstanceCtrl',
             controllerAs: 'pc',
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -61,7 +61,7 @@ console.log ('user init');
         
         modalInstance = $uibModal.open({
             // kontroler koji se koristi za modalni prozor
-            controller: 'EditInstanceCtrl',
+            controller: 'UserEditInstanceCtrl',
             controllerAs: '$ctrl',
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -105,7 +105,7 @@ console.log ('user init');
     };
 
 
-}).controller('ConfirmInstanceCtrl', function ($uibModalInstance,user) {
+}).controller('UserConfirmInstanceCtrl', function ($uibModalInstance,user) {
     console.log('confirminstance');
     console.log(user.name);
    // this.name=user.ime;
@@ -117,7 +117,7 @@ console.log ('user init');
     this.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-}).controller('EditInstanceCtrl', function ($uibModalInstance, user) {
+}).controller('UserEditInstanceCtrl', function ($uibModalInstance, user) {
   console.log('instance init');
     var $ctrl = this;
     $ctrl.user=user;

@@ -40,7 +40,7 @@ angular.module('app')
 
      $scope.openedit = function (inticket) {
         if (inticket) {
-          $scope.modaltitle = "Edit ticket";
+          $rootScope.modaltitle = "Edit ticket";
           // napraviti kopiju 
           ticket = {
                 _id  : inticket._id,
@@ -49,7 +49,7 @@ angular.module('app')
           };
   
         } else {
-           $scope.modaltitle = "New ticket";
+           $rootScope.modaltitle = "New ticket";
            ticket = inticket;
         };   
         
