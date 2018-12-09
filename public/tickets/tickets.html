@@ -1,0 +1,14 @@
+<h1>Tickets list</h1>
+<td><button class="btn btn-success btn-xs" ng-click="openedit()">New</button></td>
+<hr>
+<table class="table">
+        <th>Subject</th>
+        <th></th>
+<tr ng-repeat="ticket in tickets">
+    <td>{{ticket.subject}}</td>
+    <td>
+        <button class="btn btn-primary btn-xs" ng-click="openedit(ticket)">Edit</button>
+        <button class="btn btn-danger btn-xs" ng-click="confirmdelete(ticket)">Delete</button>
+    </td>
+    
+</table>

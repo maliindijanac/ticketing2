@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html  ng-app="app">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+  </head>
+  <body>
+ <!-- Fixed navbar navbar navbar-default navbar-fixed-->
+ <nav class="navbar navbar-default navbar-dark bg-dark" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+      <ul class="nav navbar-nav">
+        <!--li><a href="#!signin">Sign in</a></li-->
+        <li><a href="#!users">Users</a></li>
+        <li><a href="#!tickets">Tickets</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ng-view></ng-view>
+
+</body>
+  <script src="/components/angular/angular.min.js"></script>
+  <script src="/components/angular-route/angular-route.min.js"></script>
+  <script src="/components/angular-resource/angular-resource.min.js"></script>
+  <script src="/components/angular-animate/angular-animate.min.js"></script>
+  <script src="/components/angular-sanitize/angular-sanitize.min.js"></script>
+  
+  <script src="/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  
+  <script src="/angularapp.js"></script>
+  <script src="/angularservice.js"></script>
+  <script src="/home_ctrl.js"></script>
+
+  <script src="users/users_ctrl.js"></script>
+  <script src="tickets/tickets_ctrl.js"></script>
+                        
+
+</html>

@@ -1,0 +1,20 @@
+<h1>Application users</h1>
+<td><button class="btn btn-success btn-xs" ng-click="openedit()">New</button></td>
+<hr>
+<table class="table">
+        <th>Name</th>
+        <th>e-mail</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th></th>
+<tr ng-repeat="user in users">
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.role}}</td>
+    <td>
+        <button class="btn btn-primary btn-xs" ng-click="openedit(user)">Edit</button>
+        <button class="btn btn-danger btn-xs" ng-click="confirmdelete(user)">Delete</button>
+    </td>
+    
+</table>
