@@ -4,37 +4,37 @@ angular.module('app')
 console.log ('user init');
 
 
-    $scope.confirmdelete = function (inuser) {
+    $scope.confirmdelete = function (inuser, msg) {
         console.log('confirmdelete modal');
         console.log(inuser.name);
         modalInstance = $uibModal.open({
-            controller: 'UserConfirmInstanceCtrl',
+            controller: 'ConfirmInstanceCtrl',
             controllerAs: 'pc',
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'ConfirmModal.html',        
             resolve: {
-              user: function () {
-                return inuser;
+              text: function () {
+                return msg;
               }
-            }     
+            }    
         });
     
         modalInstance.result.then(function (user) {
-            console.log('confirm Modal OK clicked');
-            console.log(user);
-              // brisanje sa liste
-              //userindex = $scope.users.indexOf(user);
-              //$scope.users.splice(userindex, 1);
-              //brisanje iz baze
-              user.$delete();
-              $scope.users = Users.query();
+          console.log('confirm Modal OK clicked');
+            // brisanje sa liste
+            //userindex = $ctrl.users.indexOf(user);
+            //$ctrl.users.splice(userindex, 1);
+            //brisanje iz baze
+            console.log (inuser);
+            inuser.$delete();
+            $scope.users = Users.query();
 
-    
-        }, function () {
-            console.log('ConfirmModal dismissed');
-        });
+  
+          }, function () {
+              console.log('ConfirmModal dismissed');
+          });
         
         $rootScope.modalInstance = modalInstance;
       };
@@ -104,19 +104,6 @@ console.log ('user init');
         $rootScope.modalInstance = modalInstance;
     };
 
-
-}).controller('UserConfirmInstanceCtrl', function ($uibModalInstance,user) {
-    console.log('confirminstance');
-    console.log(user.name);
-   // this.name=user.ime;
-    this.confirmtext = 'Are you sure you want to delete "'+user.name+'" ?'
-    this.ok = function () {
-      $uibModalInstance.close(user);
-    };
-  
-    this.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
 }).controller('UserEditInstanceCtrl', function ($uibModalInstance, user) {
   console.log('instance init');
     var $ctrl = this;

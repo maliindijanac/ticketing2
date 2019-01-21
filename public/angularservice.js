@@ -26,4 +26,8 @@ angular.module('app')
 
     */
     
-  }]);
+  }])
+  .factory('Login', ['$resource', function($resource){
+    return $resource('/users/login');
+  }]);    
+;

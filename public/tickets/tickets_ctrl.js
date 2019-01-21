@@ -2,40 +2,41 @@ angular.module('app')
 .controller ('ticketsCtrl', function ($scope, $uibModal, $rootScope,Tickets){
     $scope.tickets = Tickets.query();
 
-    $scope.confirmdelete = function (inticket) {
-        console.log('confirmdelete modal');
-        console.log(inticket.subject);
-        modalInstance = $uibModal.open({
-            controller: 'ConfirmInstanceCtrl',
-            controllerAs: 'pc',
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'ConfirmModal.html',        
-            resolve: {
-              ticket: function () {
-                return inticket;
-              }
-            }     
-        });
-    
-        modalInstance.result.then(function (ticket) {
-            console.log('confirm Modal OK clicked');
-            console.log(ticket);
-              // brisanje sa liste
-              //ticketindex = $scope.tickets.indexOf(ticket);
-              //$scope.tickets.splice(ticketindex, 1);
-              //brisanje iz baze
-              ticket.$delete();
-              $scope.tickets = Tickets.query();
+    $scope.confirmdelete = function (inticket,msg) {
+      console.log('confirmdelete modal');
+      console.log(inticket.subject);
+      modalInstance = $uibModal.open({
+          controller: 'ConfirmInstanceCtrl',
+          controllerAs: 'pc',
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'ConfirmModal.html',    
+          backdrop: 'statisc',    
+          resolve: {
+            text: function () {
+              return msg;
+            }
+          }     
+      });
+  
+      modalInstance.result.then(function (ticket) {
+          console.log('confirm Modal OK clicked');
+          console.log(inticket);
+            // brisanje sa liste
+            //ticketindex = $scope.tickets.indexOf(ticket);
+            //$scope.tickets.splice(ticketindex, 1);
+            //brisanje iz baze
+            inticket.$delete();
+            $scope.tickets = Tickets.query();
 
-    
-        }, function () {
-            console.log('ConfirmModal dismissed');
-        });
-        
-        $rootScope.modalInstance = modalInstance;
-      };
+  
+      }, function () {
+          console.log('ConfirmModal dismissed');
+      });
+      
+      $rootScope.modalInstance = modalInstance;
+    };
 
 
      $scope.openedit = function (inticket) {
@@ -98,18 +99,6 @@ angular.module('app')
         $rootScope.modalInstance = modalInstance;
     };
 
-
-}).controller('ConfirmInstanceCtrl', function ($uibModalInstance,ticket) {
-    console.log('confirminstance');
-    console.log(ticket.subject);
-    this.confirmtext = 'Are you sure you want to delete "'+ticket.subject+'" ?'
-    this.ok = function () {
-      $uibModalInstance.close(ticket);
-    };
-  
-    this.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
 }).controller('EditInstanceCtrl', function ($uibModalInstance,ticket) {
     var $ctrl = this;
     $ctrl.ticket=ticket;

@@ -14,7 +14,7 @@
     <td>{{user.role}}</td>
     <td>
         <button class="btn btn-primary btn-xs" ng-click="openedit(user)">Edit</button>
-        <button class="btn btn-danger btn-xs" ng-click="confirmdelete(user)">Delete</button>
+        <button class="btn btn-danger btn-xs" ng-click="confirmdelete(user,'Do you want to delete '+user.name)">Delete</button>
     </td>
     
 </table>
