@@ -57,18 +57,31 @@ var ticketSchema = mongoose.Schema ({
 });
 
 
-// opcija da se virtualno polje uvjek popunjava bez posebnog zahtjeva
-// primjer bez ove opcije
-//Ticket.findById(req.params.id).populate("autor","name")
-//.populate("assignedtoname")
-//.exec(function(err, ticket){
+ticketSchema.pre('findOne', function() {
+    console.log('prefindONE executed');
+   // this.populate('assignedtodet','name');
+   this.populate('assignedto','name')
+       .populate('author','name')
+       .populate('notes.noteauthor','name')
+       ;
+});
 
-// sa ovom opcijom
-// Ticket.findById(req.params.id).populate("autor","name")
-//  .exec(function(err, ticket){
+ticketSchema.pre('find', function() {
+    console.log('prefind executed');
+    //this.populate('assignedtodet','name');
+    this.populate('assignedto','name').populate('author','name');
+});
+
+ticketSchema.post('findOneAndUpdate', function() {
+    console.log('postfindOneAndUpdate executed');
+   // this.populate('assignedtodet','name');
+   this.populate('assignedto','name').populate('author','name');
+});
 
 
 
+
+/*
 ticketSchema.virtual('assignedtodet', {
     ref: 'User', // The model to use
     localField: 'assignedto', // Find people where `localField`
@@ -81,28 +94,6 @@ ticketSchema.virtual('assignedtodet', {
 
 
 
-// Always attach `populate()` to `find()` calls
-//MySchema.pre('find', function() {
-//    this.populate('user');
-//  });
-
-// Always `populate()` after `find()` calls. Useful if you want to selectively populate
-// based on the docs found.
-//MySchema.post('find', async function(docs) {
-//    for (let doc of docs) {
-//      if (doc.isPublic) {
-//        await doc.populate('user').execPopulate();
-//      }
-//    }
-//  });
-
-// `populate()` after saving. Useful for sending populated data back to the client in an
-// update API endpoint
-//MySchema.post('save', function(doc, next) {
-//    doc.populate('user').execPopulate().then(function() {
-//      next();
-//    });
-//  });
 
 ticketSchema.pre('findOne', function() {
     //console.log('prefindONE executed');
@@ -127,5 +118,7 @@ ticketSchema.virtual('createddateformatedshort')
   return moment(this.createddate).format('DD.MM hh:mm');
 }
 );
+*/
+
 
 var Ticket = module.exports =mongoose.model('Ticket',ticketSchema);

@@ -1,6 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 var User = require ('../modules/user');
+const jwt = require ('jsonwebtoken');
 
 // CRUD api za korisnika
 
@@ -17,26 +18,7 @@ router.get('/', function (req,res) {
     });
 });
 
-// unos novog korisnika
-router.post('/', function (req,res) {
-    console.log('obicni post');
-       user = new User ( {
-           name : req.body.name,
-           email : req.body.email,
-           username : req.body.username,
-           password : req.body.password
-          }
-       );
-    console.log(user);
-        user.save(function (err,user){
-            if (err) {
-                res.send(err);
-            } else {
-                res.send(user)
-            }
-    
-        });
-});
+
 
 //brisanje jednog korisnika
 router.delete('/:id',  function (req,res) {
@@ -86,7 +68,7 @@ router.post('/login', function (req,res) {
                         //console.log(user);
                         if (user) {
                             // pronađen korisnika
-                            var token = jwt.sign(user.toJSON(),'tajnipass'/*,{expiresIn : 20000}*/);
+                            var token = jwt.sign(user.toJSON(),'aminasifra'/*,{expiresIn : 20000}*/);
                             res.status(200).send ({
                                 success : true,
                                 message: "Authenticated",
@@ -106,17 +88,29 @@ router.post('/login', function (req,res) {
                 });
 });
 
-
+// unos novog korisnika
+router.post('/', function (req,res) {
+    console.log('obicni post');
+       user = new User ( {
+           name : req.body.name,
+           email : req.body.email,
+           username : req.body.username,
+           password : req.body.password
+          }
+       );
+    console.log(user);
+        user.save(function (err,user){
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(user)
+            }
+    
+        });
+});
     
 // registracija
 router.post('/register', function (req,res) {
-  /*  encriptedpass = req.body.password;
-    bcrypt.genSalt(10, function (err,salt){
-        bcrypt.hash (req.body.password,salt, function (err,hash){
-            encriptedpass = hash;
-        })
-
-    });*/
 
     user = new User ( {
         name : req.body.name,
@@ -125,7 +119,9 @@ router.post('/register', function (req,res) {
         password : req.body.password
        }
     );
+
  console.log(user);
+
      user.save(function (err,user){
          if (err) {
              res.status(400).send(err);

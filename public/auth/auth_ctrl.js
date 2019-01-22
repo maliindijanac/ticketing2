@@ -40,7 +40,6 @@ angular.module('app')
     delete $http.defaults.headers.common.Authorization;
     $rootScope.loged=false;
     $rootScope.isadmin=false;
-
     $scope.loged = false;
     $scope.password = null;
   };

@@ -1,14 +1,16 @@
 angular.module('app')
 .controller ('registerCtrl', function ($scope,$rootScope,Users){
 console.log ('reg init');
+
+$scope.user = {
+    name : "test",
+    username : "",
+    email : "",
+    password:""
+};
+
      $scope.register = function () {
-         user = {
-                name : $scope.name,
-                username : $scope.username,
-                email : $scope.email,
-                role : $scope.role
-          };
-          Users.save(user);
+          Users.register ($scope.user);
           console.log('Saved');
           $scope.completed=true;
     };

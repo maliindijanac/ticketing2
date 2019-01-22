@@ -1,0 +1,32 @@
+<h1>Ticket details</h1>
+<td><button class="btn btn-success btn-xs" ng-click="openassign()">Assign</button></td>
+<span class="pull-right"> 
+<strong data-ng-bind="ticket.status"></strong>
+</span> 
+<hr>
+<h4 data-ng-bind="ticket.subject"></h4>
+<p>Posted on <span data-ng-bind="ticket.createddate | date:'dd.MM.yy HH:mm'"></span> 
+  by <strong data-ng-bind="ticket.author.name"></strong>
+</p>
+<p>Assigned to <strong data-ng-bind="ticket.assignedto.name"></strong> 
+</p>
+
+<p data-ng-bind="ticket.description"></p>
+
+<div class="list-group">
+    <div data-ng-repeat="note in ticket.notes" class="list-group-item">
+    <p>
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="note.notedate | date:'dd.MM.yy HH:mm'"></span>
+        by
+        <strong data-ng-bind="note.noteauthor.name"></strong>
+      </small>
+    </p>
+    <p data-ng-bind="note.notetext"></p>
+    </div>
+  </div>
+  <span class="pull-right"> 
+    <button class="btn btn-primary btn-xs" ng-click="openeditnote()">New note</button>
+  <span>    
+

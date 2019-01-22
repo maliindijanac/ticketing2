@@ -1,0 +1,36 @@
+<form name="noteForm">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">{{modaltitle}}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+                <div class="form-group">
+                        <label>Note</label>
+                        <textarea rows="6" class="form-control" placeholder="Enter note" name="notetext"
+                         ng-model="$ctrl.notetext" required></textarea>
+                        <span style="color:red" ng-show="noteForm.notetext.$dirty && noteForm.notetext.$invalid">
+                            <span ng-show="noteForm.notetext.$error.required">Note is required.</span>
+                        </span>
+
+                        <label>Assign to</label>
+                        <select class="form-control" placeholder="Choose user"  name="assignto" ng-model="$ctrl.assignedto" required>
+                            <option data-ng-repeat="user in $ctrl.users" value="{{user._id}}">{{user.name}}</option>
+                        </select>
+                        <span style="color:red" ng-show="ticketForm.assignedto.$dirty && ticketForm.assignedto.$invalid">
+                            <span ng-show="ticketForm.assignedto.$error.required">Please select from the list.</span>
+                        </span>
+
+                        <label>Ticket status</label>
+                        <select class="form-control" placeholder="Choose status"  name="status" ng-model="$ctrl.newStatus" required>
+                            <option data-ng-repeat="status in $ctrl.statuslist" value="{{status}}">{{status}}</option>
+                        </select>
+                        <span style="color:red" ng-show="ticketForm.status.$dirty && ticketForm.status.$invalid">
+                            <span ng-show="ticketForm.status.$error.required">Please select from the list.</span>
+                        </span>
+                </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()" ng-disabled="noteForm.$invalid">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+</form>

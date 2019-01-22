@@ -1,14 +1,41 @@
 <h1>Tickets list</h1>
 <td><button class="btn btn-success btn-xs" ng-click="openedit()">New</button></td>
 <hr>
-<table class="table">
-        <th>Subject</th>
-        <th></th>
-<tr ng-repeat="ticket in tickets">
-    <td>{{ticket.subject}}</td>
-    <td>
-        <button class="btn btn-primary btn-xs" ng-click="openedit(ticket)">Edit</button>
-        <button class="btn btn-danger btn-xs" ng-click="confirmdelete(ticket,'Do you want to delete this ticket?')">Delete</button>
-    </td>
+
+
+<div class="list-group">
+        <a data-ng-repeat="ticket in tickets" ng-href="#!tickets/{{ticket._id}}" class="list-group-item">
+          <small class="list-group-item-text">
+            Posted on
+            <!-- angular date filter primjeri https://docs.angularjs.org/api/ng/filter/date-->
+            <span data-ng-bind="ticket.createddate | date:'dd.MM.yy HH:mm'"></span>
+            by
+            <strong data-ng-bind="ticket.author.name"></strong>
+            <span class="pull-right"> 
+                <strong data-ng-bind="ticket.status"></strong>
+                <button class="btn btn-primary btn-xs" ng-click="$event.preventDefault();openedit(ticket)">Edit</button>
+                <button class="btn btn-danger btn-xs" ng-click="$event.preventDefault();confirmdelete(ticket, 'Do you want to delete this ticket?')">Delete</button>
+            <span>    
     
-</table>
+          </small>
+          <h4 class="list-group-item-heading" data-ng-bind="ticket.subject"></h4>
+          <p class="list-group-item-text" data-ng-bind="ticket.description"></p>
+          <small>Assigned to <strong>{{ticket.assignedto.name}}</strong></small>
+        </a>
+      </div>
+      <div class="alert alert-warning text-center" data-ng-if="tickets.$resolved && !tickets.length">
+        No tickets !!
+      </div>
+    
+    
+    <!--table class="table">
+            <th>Subject</th>
+            <th></th>
+    <tr ng-repeat="ticket in tickets">
+        <td>{{ticket.subject}}</td>
+        <td>
+            <button class="btn btn-primary btn-xs" ng-click="openedit(ticket)">Edit</button>
+            <button class="btn btn-danger btn-xs" ng-click="confirmdelete(ticket, 'Do you want to delete this ticket?')">Delete</button>
+        </td>
+        
+    </table-->

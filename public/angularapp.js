@@ -22,6 +22,16 @@ angular.module('app', ['ngRoute', 'ngResource','ui.bootstrap'])
         templateUrl: '/tickets/tickets.html',
         controller : 'ticketsCtrl'
     })
+    .when('/tickets/:id', {
+        templateUrl: '/ticketdet/ticketdet.html',
+        controller : 'ticketDetCtrl',
+        /*resolve : {
+          //This function is injected with the AuthService where you'll put your authentication logic
+          'auth' : function(AuthService){
+              return AuthService.authenticate();
+          }
+        }*/
+      })
 }])
 
 // globalni kontroleri za cijelu aplikaciju
