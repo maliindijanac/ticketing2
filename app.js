@@ -11,12 +11,10 @@ var tickets = require('./routes/tickets');
 var mongoose = require ('mongoose');
 var app = express();
 
-//mongodbb conncetion
-const config = require ('./config/database');
-const PORT = process.env.PORT || 3000;
 
-console.log('MONGOBAZA '+config.database);
-mongoose.connect (config.database,{useNewUrlParser: true });
+mongoose.connect (process.env.MONGODB_URI || 'mongodb://localhost:27017/nodetickets'
+                 ,{useNewUrlParser: true });
+
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;

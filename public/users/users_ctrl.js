@@ -1,7 +1,7 @@
 angular.module('app')
 .controller ('usersCtrl', function ($scope, $uibModal, $rootScope,Users){
     $scope.users = Users.query();
-console.log ('user init');
+//console.log ('user init');
 
 
     $scope.confirmdelete = function (inuser, msg) {

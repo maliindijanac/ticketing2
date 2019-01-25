@@ -1,2 +1,13 @@
 update role
 db.users.findOneAndUpdate({name:"admin"},{$set: {role:"admin"}});
+
+
+-- heroku deploy
+1. heroku create
+2. git push heroku 
+3. Dodati mongoddblab kroz web heroku
+4. provjera mongodba konekcije heroku config:get MONGODB_URI
+  (mongodb://heroku_plj3n1hw:oenbk02hfcrubvqle62om3rpte@ds213255.mlab.com:13255/heroku_plj3n1hw)
+5. Pristub mongodb preko web interfejsa
+    heroku addons:open mongolab
+    
