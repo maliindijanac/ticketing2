@@ -1,4 +1,4 @@
 angular.module('app')
-.controller ('homeCtrl', function ($scope){
-    $scope.title = 'Poruka iz home controlera';
+.controller ('homeCtrl', function ($scope, Tickets){
+    $scope.ticketOverview = Tickets.overview();
 });

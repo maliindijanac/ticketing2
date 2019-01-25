@@ -3,6 +3,7 @@ angular.module('app')
     return $resource('/tickets/:id', { id: '@_id' }, {
         'update' : {method : 'PUT'},
         'statuslist' : {url : '/tickets/statuslist', method : 'GET', isArray : true},
+        'overview' : {url : '/tickets/overview', method : 'GET', isArray : true}
     });
   }])
 .factory('Users', ['$resource', function($resource){

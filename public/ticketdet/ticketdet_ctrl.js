@@ -34,6 +34,7 @@ angular.module('app')
             console.log('Modal OK clicked');
             console.log(data.notetext);
             console.log(data.assignedto);
+            console.log("autor note "+$rootScope.appuser);
             // ubacivanje na listu na ekranu
               $scope.ticket.notes.push (
                 {

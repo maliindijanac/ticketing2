@@ -1,3 +1,10 @@
-<h1>Home page</h1>
-<!--input type="text" ng-model="title">
-<p>{{title}}</p-->
+<h1>Welcome ...</h1>
+
+    <div class="row text-center">
+        <div class= "col-sm-4" ng-repeat="status in ticketOverview">
+                <h4>{{status._id}}</h4>
+                <h4>{{status.count}}</h4>
+        </div>
+    </div>
+
+<p>Thank you ...</p>    

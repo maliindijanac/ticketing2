@@ -12,9 +12,9 @@ var noteSchema = mongoose.Schema ({
         type: Date,
         default: Date.now
     },
-    noteautor:{
-        type: String,
-        required: true
+    noteauthor:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"  
     }
 });
 
@@ -58,8 +58,6 @@ var ticketSchema = mongoose.Schema ({
 
 
 ticketSchema.pre('findOne', function() {
-    console.log('prefindONE executed');
-   // this.populate('assignedtodet','name');
    this.populate('assignedto','name')
        .populate('author','name')
        .populate('notes.noteauthor','name')
@@ -67,8 +65,6 @@ ticketSchema.pre('findOne', function() {
 });
 
 ticketSchema.pre('find', function() {
-    console.log('prefind executed');
-    //this.populate('assignedtodet','name');
     this.populate('assignedto','name').populate('author','name');
 });
 

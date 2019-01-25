@@ -3,7 +3,7 @@ angular.module('app')
 console.log ('reg init');
 
 $scope.user = {
-    name : "test",
+    name : "",
     username : "",
     email : "",
     password:""

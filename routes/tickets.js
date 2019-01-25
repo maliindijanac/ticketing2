@@ -12,11 +12,23 @@ var userrole = '';
 
 // lista validnih vrijednosti za polje status;
 router.get('/statuslist', function (req,res) {
-    console.log('GETSTATUS');
-   // console.log(Ticket.schema.path('status').enumValues);
     res.send (Ticket.schema.path('status').enumValues);
-
 });
+
+// Stanje ticketa po statusu
+router.get('/overview', function (req,res) {
+    Ticket.aggregate([{"$group": {_id:"$status", count:{$sum:1}}}])
+        .exec(function (err,ticketstatus){
+                        if (err) {
+                            res.send (err);
+                            return;
+                        } else {
+                            res.send (ticketstatus);
+                        }
+        });
+});
+
+
 
 // lista svih ticketa
 router.get('/',checkToken, function (req,res) {
@@ -30,9 +42,9 @@ router.get('/',checkToken, function (req,res) {
     
         });
     });
+
     
 router.get('/:id', checkToken,function (req,res) {
-    console.log('GETJEDAN');
             console.log(req.params.id);
             Ticket.findOne({_id:req.params.id}, function (err,ticket){
                 if (err) {
@@ -80,6 +92,8 @@ router.delete('/:id', checkToken, function (req,res) {
     
 router.put('/:id',checkToken,  function (req,res) {
     var query = {_id:req.params.id};
+    console.log(req.body.notes);
+
     Ticket.findOneAndUpdate (query,
                            {subject: req.body.subject,
                             description:req.body.description,

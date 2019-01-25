@@ -1,0 +1,2 @@
+update role
+db.users.findOneAndUpdate({name:"admin"},{$set: {role:"admin"}});
