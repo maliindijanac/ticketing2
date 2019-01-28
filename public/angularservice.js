@@ -9,7 +9,8 @@ angular.module('app')
 .factory('Users', ['$resource', function($resource){
     return $resource('/users/:id', { id: '@_id' }, {
         'update' : {method : 'PUT'},
-        'register' : {url:'users/register', method : 'POST'}
+        'register' : {url:'users/register', method : 'POST'},
+        'querydev' : {url : '/users/querydev', method : 'GET', isArray : true}
     });
     
     /* bez parametara se dobije default struktura za operacije 

@@ -2,17 +2,17 @@ angular.module('app')
 .controller ('authCtrl', function ($scope, $rootScope,$location, Login, $http){
   $scope.loged= $rootScope.loged || false;
   // provjera tokena
+  
   $scope.login = function () {
-    console.log($scope.username);
-      //loginres = Login.save({username:$scope.username,password:$scope.password});
       Login.save({username:$scope.username,password:$scope.password}, function(loginres){
-        console.log(loginres);
+       // console.log(loginres);
         if (loginres.success) {
-          // uspjeĹˇan login
-          console.log('OKKK');
+          // uspješn login
+         
           localStorage.setItem('user',loginres.token);
           localStorage.setItem('userid',loginres.userid);
           localStorage.setItem('isadmin',loginres.isadmin);
+          localStorage.setItem('token',loginres.token);
 
           $scope.error = null;
           $http.defaults.headers.common['Authorization'] =  loginres.token;
@@ -21,8 +21,6 @@ angular.module('app')
           $rootScope.loged   = true;
           $rootScope.isadmin = loginres.isadmin;
      
-          console.log($rootScope.isadmin );
-
           $scope.loged = true;
           $location.path('/tickets');
         } else {

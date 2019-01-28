@@ -23,10 +23,6 @@ angular.module('app')
     
         modalInstance.result.then(function (user) {
           console.log('confirm Modal OK clicked');
-            // brisanje sa liste
-            //userindex = $ctrl.users.indexOf(user);
-            //$ctrl.users.splice(userindex, 1);
-            //brisanje iz baze
             console.log (inuser);
             inuser.$delete();
             $scope.users = Users.query();
@@ -80,11 +76,7 @@ angular.module('app')
             console.log(user);
             // ubacivanje na listu na ekranu
             if (user._id) {
-              // 
               //izmjena  u listi
-              //$scope.users[$scope.users.findIndex(function(obj){return obj._id == user._id})]=user;
-  
-              console.log('UPDATEEEEE');
               Users.update(user);
               $scope.users = Users.query();
 
@@ -94,7 +86,9 @@ angular.module('app')
                 if (resuser) {
                   $scope.users.push(resuser);
                 };
-              });         // spremanje u bazu
+              });         
+              
+              // spremanje u bazu
 
             }
         }, function () {

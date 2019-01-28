@@ -3,10 +3,12 @@ const router = express.Router();
 var User = require ('../modules/user');
 const jwt = require ('jsonwebtoken');
 
+var userid = '';
+var userrole = '';
 // CRUD api za korisnika
 
 // lista svih korisnika
-router.get('/', function (req,res) {
+router.get('/',checkToken, function (req,res) {
 
     User.find({}, function (err,users){
         if (err) {
@@ -18,10 +20,21 @@ router.get('/', function (req,res) {
     });
 });
 
+// lista developera
+router.get('/querydev',checkToken, function (req,res) {
+    User.find({"role":"developer"}, function (err,users){
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(users)
+        }
+
+    });
+});
 
 
 //brisanje jednog korisnika
-router.delete('/:id',  function (req,res) {
+router.delete('/:id',checkToken,  function (req,res) {
     var query = {_id:req.params.id};
     User.deleteOne (query,function(err, user) {
         if (err) {
@@ -34,7 +47,7 @@ router.delete('/:id',  function (req,res) {
 
 // update korisnika
 
-router.put('/:id',  function (req,res) {
+router.put('/:id', checkToken, function (req,res) {
     var query = {_id:req.params.id};
     User.findOneAndUpdate (query,
                            {name:req.body.name,
@@ -55,8 +68,6 @@ router.put('/:id',  function (req,res) {
 
 // prijava na aplikaciju
 router.post('/login', function (req,res) {
-    //console.log(req.body.username);
-    //console.log(req.body.password);
     // traži korisnika po username i passwordu
     User.findOne ({username:req.body.username,
                    password:req.body.password}, 
@@ -68,7 +79,7 @@ router.post('/login', function (req,res) {
                         //console.log(user);
                         if (user) {
                             // pronađen korisnika
-                            var token = jwt.sign(user.toJSON(),'aminasifra'/*,{expiresIn : 20000}*/);
+                            var token = jwt.sign(user.toJSON(),'aminasifra' /*,{expiresIn : 20000}*/ );
                             res.status(200).send ({
                                 success : true,
                                 message: "Authenticated",
@@ -89,7 +100,7 @@ router.post('/login', function (req,res) {
 });
 
 // unos novog korisnika
-router.post('/', function (req,res) {
+router.post('/', checkToken,function (req,res) {
     console.log('obicni post');
        user = new User ( {
            name : req.body.name,
@@ -131,5 +142,17 @@ router.post('/register', function (req,res) {
  
      });
 });
+
+function checkToken (req,res,next){
+    jwt.verify (req.headers.authorization,'aminasifra',function (err,decoded) {
+      if (err) {
+         res.status(401).send('Authorization error!!');
+      } else {
+		 userid = mongoose.Types.ObjectId (decoded._id);
+		 userrole = decoded.role;
+         return next();
+      } 
+    });
+};
 
 module.exports = router;

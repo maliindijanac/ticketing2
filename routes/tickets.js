@@ -32,8 +32,15 @@ router.get('/overview', function (req,res) {
 
 // lista svih ticketa
 router.get('/',checkToken, function (req,res) {
+    // inicijalni kriterij za listu tiketa je da je tiket kreiran ili dodijeljen trenutnom korisniku
+    var query = { "$or":[{"assignedto":userid},{"author":userid}]};
     
-        Ticket.find({}, function (err,tickets){
+    // ako je korisnik manager ili admin onda se poništava prethodni uslov, lista vraća sve tikete
+    if (userrole == 'admin' || userrole=="manager") {
+        query = {};
+    }
+
+        Ticket.find(query, function (err,tickets){
             if (err) {
                 res.send(err);
             } else {
@@ -114,10 +121,8 @@ router.put('/:id',checkToken,  function (req,res) {
 function checkToken (req,res,next){
     jwt.verify (req.headers.authorization,'aminasifra',function (err,decoded) {
       if (err) {
-         res.status(401).send('ERRR');
+         res.status(401).send('Authorization error!!');
       } else {
-        // console.log(decoded);
-         //userid = decoded._id; 
 		 userid = mongoose.Types.ObjectId (decoded._id);
 		 userrole = decoded.role;
          return next();

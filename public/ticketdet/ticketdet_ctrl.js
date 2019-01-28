@@ -7,7 +7,7 @@ angular.module('app')
     $scope.openeditnote = function () {
        console.log(' note modal');
         $rootScope.modaltitle = "New note"
-        users = Users.query();
+        users = Users.querydev();
         statuslist = Tickets.statuslist();
         modalInstance = $uibModal.open({
             // kontroler koji se koristi za modalni prozor
@@ -43,18 +43,13 @@ angular.module('app')
                 }
               );
 
-              //if ( $scope.ticket.assignedto ) {
-                $scope.ticket.assignedto=data.assignedto; //$scope.ticket.assignedto._id;
-              //};
+              $scope.ticket.assignedto=data.assignedto; 
 
               $scope.ticket.status=data.status; 
 
               Tickets.update($scope.ticket, function(resticket){
-                /*if (resticket) {
-                  $scope.tickets.push(resticket);
-                };*/
-
               });         // spremanje u bazu
+              
               //ponovo čitanje iz baze 
               $scope.ticket = Tickets.get({id:$scope.ticket._id});
         }, function () {
@@ -66,7 +61,7 @@ angular.module('app')
 
     $scope.openassign = function () {
        $rootScope.modaltitle = "Asign ticket"
-       users = Users.query();
+       users = Users.querydev();
        statuslist = Tickets.statuslist();
 
        modalInstance = $uibModal.open({
